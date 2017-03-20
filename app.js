@@ -28,3 +28,57 @@ const express = require('express'),
 		email: sequelize.STRING,
 		password: sequelize.STRING
 	})
+
+// Tells express where to find views
+app.set('views', __dirname+'/views')
+// Sets view engine to pug
+.set('view engine', 'pug')
+
+// Middleware that only parses urlencoded bodies
+.use(bodyParser.urlencoded({extended:true}))
+// Serves static files
+.use('/static', express.static(__dirname+"/static"))
+
+
+.use(session({
+  secret: 'secure as f*ck',
+  saveUninitialized: false,
+  resave: false,
+  cookie: { secure: false },
+  maxAge: 1000 * 60 * 60
+}))
+
+.get('/', (req, res) => {
+	res.render('index')
+})
+
+// Make the server listen on port 3000
+app.listen(3000, f=> {
+console.log('Server Running!')
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
