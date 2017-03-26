@@ -116,6 +116,11 @@ app.set('views', __dirname+'/views')
 		})	
 })
 
+.get('/logout', (req, res) => {
+	req.session.destroy()
+	res.redirect('/')
+})
+
 db.sync({force: true}).then( f => {
 	return individual.create({
 		firstname: "Logan",
