@@ -1,20 +1,327 @@
 doctype html
 html
 	head
-		title Home - Message in a Bottle
+		title Home - Spread the Love SF
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/style.css")
 		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+		link(href="static/font-awesome/css/font-awesome.min.css" rel="stylesheet")
+		link(rel="stylesheet" type="text/css" href="static/slick/slick.css")
+		link(link rel="stylesheet" type="text/css" href="static/slick/slick-theme.css")
 	body
+		.header.valign-wrapper
+			.div.row.valign.headercontent
+				h1.col.s12.center.spreadthelove Spread the Love
+				h3.col.s12.center.sf San Francisco
+
+		.nav-extended
+			if individual || organization
+			else
+				a.btn.right.blue-grey(href="#register") Become a Member
+				#register.modal.center
+					.modal-content
+						nav
+							.nav-wrapper
+								.col.s12.grey.darken-4
+									a.breadcrumb.whoareyou Who are you?
+									a.breadcrumb.basicinfo.hide-on-small-only Basic Information
+									a.breadcrumb.finish.hide-on-small-only Finish
+
+						.container#whoareyou I am an:
+							form#iaman
+								p.left
+									input.with-gap#individual(type="radio" name="whoareyou" value="individual")
+									label(for="individual") Individual
+								p.left
+									input.with-gap#organization(type="radio" name="whoareyou" value="organization")
+									label(for="organization" name="whoareyou") Organization
+								button.blue-grey.btn.waves-effect.waves-light.center(type="submit") NEXT
+
+						form#basicinfo1.col.s12
+							.row
+								.input-field.col.s6
+									input.validate.firstname(name="firstname" type="text" required="" autocomplete="off" placeholder="First Name")
+								.input-field.col.s6
+									input.validate.lastname(name="lastname" type="text" required="" autocomplete="off" placeholder="Last Name")
+							.row
+								.input-field.col.s12
+									input.validate.email(name="email" type="email" required="" autocomplete="off" placeholder="Email")
+							.row
+								.input-field.col.s12
+									input.validate.password(name="password" type="password" required="" autocomplete="off" placeholder="Password")
+									button.blue-grey.btn.waves-effect.waves-light.center(type="submit") SUBMIT
+
+						form#basicinfo2.col.s12
+							.row
+								.input-field.col.s6
+									input.validate.orgname(name="orgname" type="text" required="" autocomplete="off" placeholder="Name of organization")
+								.input-field.col.s6
+									select.category
+										option(value="" disabled selected) Which best describes your organization?
+										option.type1(value="collective") Collective
+										option.type2(value="nonprofit") Non-profit
+							.row
+								.input-field.col.s12
+									input.validate.orgemail(name="orgemail" type="email" required="" autocomplete="off" placeholder="Email")
+							.row
+								.input-field.col.s12
+									input.validate.orgpassword(name="orgpassword" type="password" required="" autocomplete="off" placeholder="Password")
+									button.blue-grey.btn.waves-effect.waves-light.center(type="submit") SUBMIT
+						form#finish.col.s12(method="GET")
+							.row
+								p.center.congrats Congratulations! Your account has been made. 
+									.overview.col.s12.offset-l2.offset-m2
+										span Name: 
+										span Email: 
+										span Organization: 
+										span Type: 
+										span Email: 
+								button.blue-grey.btn.waves-effect.waves-light.center(type="submit") Start spreading the love!
+			if individual
+				ul#slide-out.side-nav
+					li.userView
+						.background
+							img(src='/static/css/images/placeholderimg.jpg')
+						a(href='#!user')
+							img.circle(src='/static/css/images/placeholderimg.jpg')
+						a(href='#!name') #{individual.firstname} #{individual.lastname}
+						a(href='#!email') #{individual.email}
+					li
+						a(href="#!") website?
+					li
+						a(href="#!") something here
+					li.divider
+					li
+						a.subheader(href="#!") Subheader
+					li
+						a.waves-effect(href="#!") and something here too
+				a#indprofile.btn.button-collapse.blue-grey(href="#" data-activates="slide-out") Profile
+					i.material-icons.left menu
+				.tap-target(data-activates="indprofile")
+					i.fa.fa-angle-double-left.right(aria-hidden="true")
+					.container
+						strong Click to view your new profile!
+						ul
+							li -Write a bio
+							li -Keep track of all the love you share
+							li -Post odd jobs
+
+			else if organization
+				ul#slide-out.side-nav
+					li.userView
+						.background
+							img(src='/static/css/images/placeholderimg.jpg')
+						a(href='#!user')
+							img.circle(src='/static/css/images/placeholderimg.jpg')
+						a(href='#!name') #{organization.orgname}
+						a(href='#!email') #{organization.email}
+					li
+						a(href="#!") website
+					li
+						a(href="#!") bio
+					li.divider
+					li
+						a.subheader(href="#!") Subheader
+					li
+						a.waves-effect(href="#!") and something here too
+				a#orgprofile.btn.button-collapse.blue-grey(href="#" data-activates="slide-out") Profile
+					i.material-icons.left menu
+				.tap-target(data-activates="orgprofile")
+					.tap-target-content
+						strong Click to view your new profile!
+							ul
+								li -Feature your website
+								li -Write a bio about your organization
+								li -Post volunteer opportunites for your #{organization.type}
+
+			else
+				a.btn.left.blue-grey(href="#login") Log-In
+				#login.modal
+					.modal-content
+						.row
+							form.col.s12
+								.row
+									.input-field.col.s6
+										i.material-icons.prefix account_circle
+											input#iconprefix.validate(name="firstname" type="text" required="" autocomplete="off")
+									.input-field.col.s6
+										input.validate(name="lastname" type="text" required="" autocomplete="off")
+								.row
+									.input-field
+										input
+		.nav-content.center
+			ul.tabs.tabs-transparent
+				li.tab
+					a(href="#home") Home
+				li.tab
+					a(href="#oddjobs") Odd Jobs
+				li.tab
+					a(href="#collectives") Collectives
+				li.tab
+					a(href="#nonprofit") Non-Profit Oranizations
+				li.tab
+					a(href="#initiatives") Initiatives
+		.socialmedia.hide-on-small-only
+				a(href="#")
+					i.fa.fa-facebook-square.fa-5x(aria-hidden="true")
+				a(href="#")
+					i.fa.fa-twitter-square.fa-5x(aria-hidden="true")
+				a(href="#")
+					i.fa.fa-instagram.fa-5x(aria-hidden="true")
+				a(href="#")
+					i.fa.fa-envelope-square.fa-5x(aria-hidden="true")
+		#scrollspy.col.hide-on-med-and-down.m3.l2.right
+			ul.section.table-of-contents
+				l(hidden)
+					a(href="#slides" hidden)
+				li
+					a(href="#about") Introduction
+				li
+					a(href="#recent") Featured
+				li
+					a(href="#youcanmakeadifference") Be the Change
+		
+		#home
+			.container
+				.container#slides.section.scrollspy
+					.slider
+						ul.slides
+							li
+								img(src='/static/css/images/placeholderimg.jpg')
+								.caption.center-align
+							li
+								img(src='/static/css/images/placeholderimg.jpg')
+							li
+								img(src='/static/css/images/placeholderimg.jpg')
+							li
+								img(src='/static/css/images/placeholderimg.jpg')
+							li
+								img(src='/static/css/images/placeholderimg.jpg')
+				#about.flow-text.section.scrollspy
+					strong Spread the Love San Francisco 
+					span is all about helping out others in need. It is a community marketplace not based on money, but kindness and gratitude. We believe a gift-based economy provides the most abundance and brings out the best in humanity by accentuating qualities of compassion and empathy rather than greed and lust. We dream of a day where everyone in our society races to lend each other a helping hand instead of stepping over each other to attain what we've been told makes the world go 'round. True, money can get you a lot in this world, but let's put that song by The Beatles to the test and prove that 
+					strong  all we need is love.
+
+				#recent.section.scrollspy 
+					.takealook Take a look at some of the opportunities you have to help.
+					.recentslides
+						.card
+							.card-image.waves-effect.waves-block.waves-light
+								img.activator(src=('/static/css/images/placeholderimg.jpg'))
+							.card-content
+								.card-title.activator Job title
+									i.material-icons.right more_vert
+									p Description of job
+							.card-action
+								p.center Type of work
+							.card-reveal
+								.card-title Job title
+									i.material-icons close
+								p Description of job
+						.card
+							.card-image.waves-effect.waves-block.waves-light
+								img.activator(src=('/static/css/images/placeholderimg.jpg'))
+							.card-content
+								.card-title.activator Job title
+									i.material-icons.right more_vert
+									p Description of job
+							.card-action
+								p.center Type of work
+							.card-reveal
+								.card-title Job title
+									i.material-icons close
+								p Description of job
+						.card
+							.card-image.waves-effect.waves-block.waves-light
+								img.activator(src=('/static/css/images/placeholderimg.jpg'))
+							.card-content
+								.card-title.activator Job title
+									i.material-icons.right more_vert
+									p Description of job
+							.card-action
+								p.center Type of work
+							.card-reveal
+								.card-title Job title
+									i.material-icons close
+								p Description of job
+						.card
+							.card-image.waves-effect.waves-block.waves-light
+								img.activator(src=('/static/css/images/placeholderimg.jpg'))
+							.card-content
+								.card-title.activator Job title
+									i.material-icons.right more_vert
+									p Description of job
+							.card-action
+								p.center Type of work
+							.card-reveal
+								.card-title Job title
+									i.material-icons close
+								p Description of job
+
+				#youcanmakeadifference.section.scrollspy
+					.center You can make a difference.
+					span Every good deed, every hour volunteered, and every successful initiative brings us one step closer to a better tomorrow. Together we can change the world and how it operates. United we can stand up against a system that enslaves us and impoverishes us and implement one that frees us and enriches our lives. Helping others feels great, and so does being helped. Find that part of you that wishes to serve the common good, 
+					a(href="#register") become a member 
+					span today and start being the change you wish to see.
 
 
 
+		#oddjobs
+
+		#collectives
+
+		#nonprofit
+
+		#initiatives
+		.page-footer
+			.container
+				.row
+					.col.l6.s12
+						h5 Footer content
+						p blah blah blah
+					.col.l4.offset-l2.s12
+						h5 blahs and more blahs
+						ul
+							li
+								a
+							li
+								a
+							li
+								a
+			.footer-copyright
+				.container Creative Commons
+					a.right megablah
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
 
 
-
-
-
-
+	
 		script(type="text/javascript" src="static/js/jquery.min.js")
+		script(type="text/javascript" src="static/slick/slick.min.js")
 		script(type="text/javascript" src="static/js/materialize.min.js")
 		script(type="text/javascript" src="static/js/custom.js")

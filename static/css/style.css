@@ -1,0 +1,304 @@
+/*--Misc--*/
+
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #212121;
+	font-weight: 200;
+}
+
+/*--Header--*/
+
+.header {
+	background-image: url('images/bgheader.jpg');
+	background-size: cover;                      
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 757px;
+}
+
+.headercontent {
+	font-family: "Brush Script MT", cursive;
+	color: #b71c1c;
+	text-shadow: 2px 2px black;
+}
+
+.spreadthelove {
+	font-size: 125px;
+}
+
+.sf {
+	font-size: 90px;
+}
+
+/*--Log-In--*/
+
+
+
+
+
+/*--Become-a-Member--*/
+
+#register {
+	text-shadow: none;
+	font-size: 30px;
+	min-width: 400px;
+}
+
+.breadcrumb {
+	color: white;
+}
+
+.breadcrumb::before {
+	margin-top: 4px;
+}
+
+.breadcrumb:nth-child(1){
+	font-weight: bold;
+}
+.reg {
+	color: black;
+	font-size: 25px;
+	margin-bottom: 20px;
+}
+
+/*-Who-are-you-*/
+
+#whoareyou {
+	margin-top: 25px;
+	max-width: 140px;
+}
+
+#iaman {
+	max-width: 140px;
+}
+
+#iaman p {
+	margin: 5px 0px 15px 10px;
+}
+
+/*-Basic-Info-*/
+
+#basicinfo1 {
+	display: none;
+}
+
+#basicinfo2 {
+	display: none;
+}
+
+.category {
+	margin-top: 7px;
+}
+
+/*-Finish-*/
+
+
+#finish {
+	display: none;
+}
+
+#finish .row {
+	margin-bottom: 0px;
+}
+
+.congrats {
+	margin-top: 25px;
+}
+
+.overview {
+	max-width: 466px;
+	margin-bottom: 10px;
+}
+
+.overview span {
+	display: none;
+	float: left;
+	clear: right;
+	font-weight: 400;
+}
+
+.overview i {
+	color: green;
+
+}
+
+
+
+/*--NavBar--*/
+
+.nav-extended {
+	text-shadow: 1px 1px black;
+	height: 36px;
+}
+
+
+/*--Social-Media-Icons--*/
+.socialmedia {
+	position:relative;
+	top:80px;
+}
+.socialmedia a{
+	float: left;
+	clear: left;
+	color: #b71c1c;
+	position: relative;
+}
+
+.socialmedia a:hover{
+	color: white;
+}
+
+/*--Scrollspy--*/
+
+#scrollspy {
+	position: relative;
+	top: -100px;
+	right: 2px;
+	font-size: 25px;
+	text-shadow: 1px 1px black;
+	width: 185px;
+}
+
+/*------Profile-----*/
+
+#orgprofile {
+	z-index: 1000;
+}
+
+#indprofile {
+	z-index: 10;
+}
+
+
+.tap-target {
+	text-shadow: none;
+	font-size: 20px;
+	font-weight: 200;
+	background-color: transparent;
+	width: 72%;
+	height: 22%;
+	border-radius: 0%;
+}
+
+.tap-target .container {
+	margin-left: 210px;
+	opacity: .85;
+	background-color: #77a278;
+	width: 63%;
+	border-radius: 10px;
+}
+
+.tap-target-wrapper {
+	height: 160px;
+	margin-bottom: -160px;
+	opacity: .9;
+}
+
+.tap-target .container li {
+	margin-top: -20px;
+	margin-bottom: 25px;
+}
+
+.tap-target strong {
+	font-size: 35px;
+	text-shadow: 1px 1px black;
+}
+
+.tap-target-wave {
+	display: none;
+}
+
+i.fa.fa-angle-double-left {
+	margin-top: -31px;
+	margin-right: 33%;
+	color: white;
+}
+
+/*-------HOME-------*/
+
+.slider {
+	margin-top: 25px;
+}
+
+#about {
+	margin-top: 50px;
+	font-size: 30px;
+	font-weight: 200;
+	color: white;
+	text-shadow: 1px 1px red;
+}
+
+strong {
+	font-family: "Brush Script MT", cursive;
+	color: #b71c1c;
+	text-shadow: 2px 2px black;
+	font-size: 50px;
+}
+
+
+/*--Slider--*/
+
+.takealook{
+	margin-top: 50px;
+	margin-bottom: 50px;
+	font-size: 40px;
+	font-weight: 200;
+	color: white;
+	text-shadow: 1px 1px red;
+}
+
+.recentslides .card {
+	opacity: .7;
+
+}
+
+.slick-slider .slick-list .slick-track .slick-center {
+	opacity: 1;
+	height: 100%;
+}
+
+.card:focus {
+	outline-color: green;
+}
+
+#youcanmakeadifference {
+	font-size: 30px;
+	font-weight: 200;
+	color: white;
+	text-shadow: 1px 1px red;
+	margin-top: 50px;
+}
+
+#youcanmakeadifference .center {
+	font-size: 50px;
+	margin-bottom: 25px;
+}
+
+#youcanmakeadifference a {
+	color: red;
+	text-shadow: 1px 1px black;
+}
+
+#youcanmakeadifference a:hover {
+	text-shadow: 1px 1px grey;
+}
+
+
+/*--Footer--*/
+
+.page-footer {
+	background-color: #b71c1c;
+	margin-top: 50px;
+}
+
+.footer-copyright {
+	background-color: #c62828 ;
+}
+
+
+
+
+
+
