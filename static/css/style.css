@@ -34,7 +34,23 @@ body {
 
 /*--Log-In--*/
 
+#login {
+	width: 33%;
+}
 
+#login form {
+	margin-top: 25px;
+}
+
+#loginformorg button, #loginformind button {
+	margin-bottom: 25px;
+	margin-left: 92px;
+	font-size: 25px;
+}
+
+#login .tabs {
+	margin-top: -49px;
+}
 
 
 

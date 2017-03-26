@@ -34,7 +34,7 @@ html
 									label(for="individual") Individual
 								p.left
 									input.with-gap#organization(type="radio" name="whoareyou" value="organization")
-									label(for="organization" name="whoareyou") Organization
+									label(for="organization") Organization
 								button.blue-grey.btn.waves-effect.waves-light.center(type="submit") NEXT
 
 						form#basicinfo1.col.s12
@@ -137,18 +137,34 @@ html
 			else
 				a.btn.left.blue-grey(href="#login") Log-In
 				#login.modal
-					.modal-content
-						.row
-							form.col.s12
-								.row
-									.input-field.col.s6
-										i.material-icons.prefix account_circle
-											input#iconprefix.validate(name="firstname" type="text" required="" autocomplete="off")
-									.input-field.col.s6
-										input.validate(name="lastname" type="text" required="" autocomplete="off")
-								.row
-									.input-field
-										input
+					nav
+						.nav-wrapper
+							.col.s4.center.grey.darken-4
+								strong Log-In
+							ul.tabs.tabs-transparent
+								li.tab
+									a(href="#loginformind") Individual
+								li.tab.right
+									a(href="#loginformorg") Organization
+					.container
+						form#loginformind.col.s12(method="POST" action="/login")
+							input.center(name="thetype" value="individual" hidden)
+							.row
+								.input-field.col.s12
+									input.validate.enteremail(name="enteremail" type="email" required="" autocomplete="off" placeholder="Email")
+							.row
+								.input-field.col.s12
+									input.validate.enterpassword(name="enterpassword" type="password" required="" autocomplete="off" placeholder="Password")
+							button.center.blue-grey.btn.waves-effect.waves-light(type="submit") SUBMIT
+						form#loginformorg.col.s12(method="POST")
+							input(name="thetype" value="organization" hidden)
+							.row
+								.input-field.col.s12
+									input.validate.enteremail(name="enteremail" type="email" required="" autocomplete="off" placeholder="Email")
+							.row
+								.input-field.col.s12
+									input.validate.enterpassword(name="enterpassword" type="password" required="" autocomplete="off" placeholder="Password")
+							button.blue-grey.btn.waves-effect.waves-light(type="submit") SUBMIT
 		.nav-content.center
 			ul.tabs.tabs-transparent
 				li.tab

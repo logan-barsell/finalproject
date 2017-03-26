@@ -65,7 +65,7 @@ app.set('views', __dirname+'/views')
 	})
 })
 
-
+// Registers an individual
 .post('/newindividual', (req, res) => {
 	var newindividual = req.body.result
 	individual.create({
@@ -74,11 +74,12 @@ app.set('views', __dirname+'/views')
 		email: newindividual.email,
 		password: newindividual.password
 	}).then((individual) => {
-		req.session.individual = individual.get({plain: true})
+		req.session.individual = individual
 		res.redirect('/')
 	})
 })
 
+// Registers an organization
 .post('/neworganization', (req, res) => {
 	var neworganization = req.body.result
 	organization.create({
@@ -87,9 +88,32 @@ app.set('views', __dirname+'/views')
 		email: neworganization.email,
 		password: neworganization.password
 	}).then((organization) => {
-		req.session.organization = organization.get({plain: true})
+		req.session.organization = organization
 		res.redirect('/')
 	})
+})
+
+.post('/login', (req, res) => {
+	if (req.body.thetype == 'individual')
+		individual.findOne({
+			where:{
+				email: req.body.enteremail,
+				password: req.body.enterpassword
+			}
+		}).then( theindividual => {
+			req.session.individual = theindividual
+			res.redirect('/')
+		})	
+	if (req.body.type == 'organization')
+		organization.findOne({
+			where:{
+				email: req.body.enteremail,
+				password: req.body.enterpassword
+			}
+		}).then( theorganization => {
+			req.session.individual = theorganization
+			res.redirect('/')
+		})	
 })
 
 db.sync({force: true}).then( f => {
