@@ -6,16 +6,13 @@ $(document).ready(f => {
 		if ($(window).scrollTop() > header) {
 			$('.socialmedia').css({'position':'fixed','top':'163px'})
 			$('#scrollspy').css({'position':'fixed', 'top':'209px'})
-			$('#orgprofile').css({'position':'fixed','top':'0px'})
-			$('#indprofile').css({'position':'fixed','top':'0px'})
 		}
 		else {
 			$('.socialmedia').css({'position':'relative','top':'80px'})
-			$('#scrollspy').css({'position':'relative','top': '-100px', 'right': '2px'})
-			$('#orgprofile').css({'position':'static'})
-			$('#indprofile').css({'position':'static'})
+			$('#scrollspy').css({'position':'relative','top': '125px', 'right': '2px'})
 		}
 	})
+
 
 	// When user clicks the 'individual' option, the class pick me is added
 	// to it and removed from the 'organization' option
@@ -80,11 +77,21 @@ $(document).ready(f => {
 	})
 
 	$('#finish').submit(e => {
-		if (user.type == 'individual'){
-			$.post('/newindividual', {result: user})
+		e.preventDefault()
+		if (user.type == 'individual') {
+			$.post('/newindividual', {result: user}, res => {
+				window.location = '/'
+			})
+		}
+		else if (user.category == 'collective') {
+			$.post('/newcollective', {result: user}, res => {
+				window.location = '/'
+			})
 		}
 		else {
-			$.post('/neworganization', {result: user})
+			$.post('/newnonprofit', {result: user}, res => {
+				window.location = '/'
+			})
 		}
 	})
 
@@ -100,33 +107,90 @@ $(document).ready(f => {
 	// Enables sideNav for profile
 	$(".button-collapse").sideNav()
 
-	// Enables Slick Carousel and desired options
-	$('.recentslides').slick({
-		centerMode: true,
-		centerPadding: '60px',
-    	slidesToShow: 3,
-    	variableWidth: true,
-    	focusOnSelect: true,
-    	responsive: [
-     	  {
-        	breakpoint: 768,
-       		settings: {
-        		arrows: false,
-        		centerMode: true,
-        		centerPadding: '40px',
-        		slidesToShow: 3
-     		}
-    	  },
-		  {
-		    breakpoint: 480,
-		    settings: {
-		        arrows: false,
-		        centerMode: true,
-		        centerPadding: '40px',
-		        slidesToShow: 1
-		    }
-		  }
-		]
+
+
+	$('#ojtitle').keyup( f => {
+		var ojtitleinput = $('#ojtitle').val()
+		$('.ojtitle').html(ojtitleinput)
 	})
+
+	$('#ojdescription').keyup( f => {
+		var ojdescriptioninput = $('#ojdescription').val()
+		$('.ojdescription').html(ojdescriptioninput)
+	})
+
+	$('#cjtitle').keyup( f => {
+		var cjtitleinput = $('#cjtitle').val()
+		$('.cjtitle').html(cjtitleinput)
+	})
+
+	$('#cjdescription').keyup( f => {
+		var cjdescriptioninput = $('#cjdescription').val()
+		$('.cjdescription').html(cjdescriptioninput)
+	})
+
+	$('#npjtitle').keyup( f => {
+		var npjtitleinput = $('#npjtitle').val()
+		$('.npjtitle').html(npjtitleinput)
+	})
+
+	$('#npjdescription').keyup( f => {
+		var npjdescriptioninput = $('#npjdescription').val()
+		$('.npjdescription').html(npjdescriptioninput)
+	})
+
+	$('#inittitle').keyup( f => {
+		var inittitleinput = $('#inittitle').val()
+		$('.inittitle').html(inittitleinput)
+	})
+
+	$('#initdescription').keyup( f => {
+		var initdescriptioninput = $('#initdescription').val()
+		$('.initdescription').html(initdescriptioninput)
+	})
+
+
+	var picinput = $('#changepic').val()
+	$('.changepic').click( f => {
+		var picinput = $('#changepic').val()
+	})
+
+	if ($('#changeprofilepic .file-field input').text().length == 0) {
+		$('#changeprofilepic button').hide()
+		$('#changeprofilepic .file-field a').show()
+	}
+	else {
+		$('#changeprofilepic .file-field a').hide()
+		$('#changeprofilepic button').show()
+	}
+
+	$('#changeprofilepic').click( f => {
+		console.log($('#changeprofilepic .file-field input').val())
+	})
+
+	$('#changeprofilepic').hover(
+		() => {
+			$('#changeprofilepic .file-field').fadeIn(700)
+		},
+		() => {
+			$('#changeprofilepic .file-field').fadeOut(700)
+		}
+	)
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 })

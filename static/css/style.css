@@ -7,6 +7,39 @@ body {
 	font-weight: 200;
 }
 
+.contact {
+	font-weight: bold;
+}
+
+/*--Cards Misc---*/
+.card-title .material-icons {
+	float: right;
+}
+
+.card {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	background-color: transparent;
+	color: white;
+}
+
+.card-content {
+	max-width: 285px;
+}
+
+form .card-content {
+	max-width: 100%;
+}
+
+.card-reveal {
+	color: black;
+}
+
+.card-image{
+	height: 350px;
+}
+
+
 /*--Header--*/
 
 .header {
@@ -35,23 +68,34 @@ body {
 /*--Log-In--*/
 
 #login {
-	width: 33%;
+	max-width: 475px;
+	min-width: 400px;
+}
+
+#login .extended-nav {
+ border-bottom: 10px solid #424242;
+}
+
+#login nav .nav-wrapper .col {
+	height: 64px;
 }
 
 #login form {
 	margin-top: 25px;
 }
 
-#loginformorg button, #loginformind button {
-	margin-bottom: 25px;
-	margin-left: 92px;
+#login button{
 	font-size: 25px;
 }
 
-#login .tabs {
-	margin-top: -49px;
+#login input {
+	font-size: 20px;
 }
 
+.tabs strong {
+	margin-left: 48px;
+	padding-top: -60px;
+}
 
 
 /*--Become-a-Member--*/
@@ -60,6 +104,10 @@ body {
 	text-shadow: none;
 	font-size: 30px;
 	min-width: 400px;
+}
+
+#register .modal-content {
+	padding-top: 0px;
 }
 
 .breadcrumb {
@@ -108,6 +156,10 @@ body {
 	margin-top: 7px;
 }
 
+#basicinfo1 .row:nth-child(3), #basicinfo2 .row:nth-child(3) {
+	margin-bottom: 0px;
+}
+
 /*-Finish-*/
 
 
@@ -141,7 +193,6 @@ body {
 }
 
 
-
 /*--NavBar--*/
 
 .nav-extended {
@@ -151,9 +202,14 @@ body {
 
 
 /*--Social-Media-Icons--*/
+#socialwrap {
+	position: absolute;
+}
 .socialmedia {
 	position:relative;
 	top:80px;
+	width: 70px;
+	overflow: hidden;
 }
 .socialmedia a{
 	float: left;
@@ -168,27 +224,75 @@ body {
 
 /*--Scrollspy--*/
 
-#scrollspy {
+#home #scrollspy {
 	position: relative;
-	top: -100px;
+	top: 125px;
 	right: 2px;
 	font-size: 25px;
-	text-shadow: 1px 1px black;
+	text-shadow: 2px 0px black;
 	width: 185px;
 }
 
 /*------Profile-----*/
 
-#orgprofile {
-	z-index: 1000;
-}
-
-#indprofile {
+.profile {
 	z-index: 10;
+	position: fixed;
+	top: 0px;
+}
+.side-nav {
+	width: 360px;
+}
+.side-nav p {
+	margin-bottom: 0px;
+}
+
+.side-nav .userView {
+	margin-bottom: 0px;
+}
+
+.side-nav .divider {
+	margin: 0px;
+}
+
+#slide-out {
+	text-shadow: none;
+}
+
+#slide-out .card {
+	color: black;
+	background-color: white;
 }
 
 
-.tap-target {
+#changeprofilepic a {
+	color: black;
+}
+
+.thefilefield {
+	height: 48px;
+}
+
+.file-field:hover {
+	text-shadow: 1px 1px 1px green;
+}
+
+#changeprofilepic p {
+	margin: 0px;
+}
+
+#changeprofilepic img {
+	margin: auto;
+}
+
+
+
+
+
+
+
+
+/*.tap-target {
 	text-shadow: none;
 	font-size: 20px;
 	font-weight: 200;
@@ -230,7 +334,7 @@ i.fa.fa-angle-double-left {
 	margin-top: -31px;
 	margin-right: 33%;
 	color: white;
-}
+}*/
 
 /*-------HOME-------*/
 
@@ -265,14 +369,19 @@ strong {
 	text-shadow: 1px 1px red;
 }
 
+#recent h4 {
+	text-shadow: .5px .5px #b71c1c;
+}
+
+#recent span {
+	color: white;
+	text-shadow: 1px 1px red;
+	font-size: 25px;
+}
+
 .recentslides .card {
 	opacity: .7;
 
-}
-
-.slick-slider .slick-list .slick-track .slick-center {
-	opacity: 1;
-	height: 100%;
 }
 
 .card:focus {
@@ -284,7 +393,7 @@ strong {
 	font-weight: 200;
 	color: white;
 	text-shadow: 1px 1px red;
-	margin-top: 50px;
+	margin-top: 35px;
 }
 
 #youcanmakeadifference .center {
@@ -301,6 +410,216 @@ strong {
 	text-shadow: 1px 1px grey;
 }
 
+
+/*----Odd-Jobs--*/
+
+.oddjobs {
+	margin-top: 25px;
+}
+
+#postoddjob {
+	background-color: transparent;
+}
+
+#postoddjob img {
+	opacity: .6;
+}
+
+#postoddjob img:hover {
+	opacity: .85;
+}
+
+.changepic {
+	margin-top: -48px;
+	margin-right: 24px;
+}
+
+#postoddjob .card-content {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#postoddjob input {
+	margin-bottom: 7px;
+	color: white;
+}
+
+#postoddjob .card-action {
+	border: none;
+}
+
+#postoddjob button {
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+}
+
+.card-title.ojtitle {
+	height: 32px;
+	text-shadow: 1px 1px darkgrey;
+	font-size: 27px;
+}
+
+.ojdescription {
+	height: 32px;
+	font-size: 25px;
+}
+
+.author {
+	font-size: 20px;
+	margin-bottom: 12px;
+	margin-top: 12px;
+}
+
+
+/*---Collectives---*/
+
+.collectives {
+	margin-top: 25px;
+}
+
+#postcollectivejob {
+	background-color: transparent;
+}
+
+#postcollectivejob img {
+	opacity: .6;
+}
+
+#postcollectivejob img:hover {
+	opacity: .85;
+}
+
+#postcollectivejob .card-content {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#postcollectivejob input {
+	margin-bottom: 7px;
+	color: white;
+}
+
+#postcollectivejob .card-action {
+	border: none;
+}
+
+#postcollectivejob button {
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+}
+
+.card-title.cjtitle {
+	height: 32px;
+	text-shadow: 1px 1px darkgrey;
+	font-size: 27px;
+}
+
+.cjdescription {
+	height: 32px;
+	font-size: 25px;
+}
+
+
+/*---Non-Profits---*/
+
+.nonprofits {
+	margin-top: 25px;
+}
+
+#postnonprofitjob {
+	background-color: transparent;
+}
+
+#postnonprofitjob img {
+	opacity: .6;
+}
+
+#postnonprofitjob img:hover {
+	opacity: .85;
+}
+
+#postnonprofitjob .card-content {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#postnonprofitjob input {
+	margin-bottom: 7px;
+	color: white;
+}
+
+#postnonprofitjob .card-action {
+	border: none;
+}
+
+#postnonprofitjob button {
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+}
+
+.card-title.npjtitle {
+	height: 32px;
+	text-shadow: 1px 1px darkgrey;
+	font-size: 27px;
+}
+
+.npjdescription {
+	height: 32px;
+	font-size: 25px;
+}
+
+
+/*---Initiatives---*/
+
+.initiatives {
+	margin-top: 25px;
+}
+
+#postinitiative{
+	background-color: transparent;
+}
+
+#postinitiative img {
+	opacity: .6;
+}
+
+#postinitiative img:hover {
+	opacity: .85;
+}
+
+#postinitiative .card-content {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+#postinitiative input {
+	margin-bottom: 7px;
+	color: white;
+}
+
+#postinitiative .card-action {
+	border: none;
+}
+
+#postinitiative button {
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+}
+
+.card-title.inittitle {
+	height: 32px;
+	text-shadow: 1px 1px darkgrey;
+	font-size: 27px;
+}
+
+.initdescription {
+	height: 32px;
+	font-size: 25px;
+}
 
 /*--Footer--*/
 

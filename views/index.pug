@@ -6,8 +6,6 @@ html
 		link(type="text/css" rel="stylesheet" href="static/css/style.css")
 		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 		link(href="static/font-awesome/css/font-awesome.min.css" rel="stylesheet")
-		link(rel="stylesheet" type="text/css" href="static/slick/slick.css")
-		link(link rel="stylesheet" type="text/css" href="static/slick/slick-theme.css")
 	body
 		.header.valign-wrapper
 			.div.row.valign.headercontent
@@ -15,19 +13,20 @@ html
 				h3.col.s12.center.sf San Francisco
 
 		.nav-extended
-			if individual || organization
+			if user.type != 'none'
 				a.btn.right.blue-grey(href="/logout") Log Out
 			else
 				a.btn.right.blue-grey(href="#register") Become a Member
 				#register.modal.center
+					.extended-nav.center.grey.darken-4
+						strong Registration
+					.divider
+					nav
+						.col.s12.grey.darken-3
+							a.breadcrumb.whoareyou Who are you?
+							a.breadcrumb.basicinfo.hide-on-small-only Basic Information
+							a.breadcrumb.finish.hide-on-small-only Finish
 					.modal-content
-						nav
-							.nav-wrapper
-								.col.s12.grey.darken-4
-									a.breadcrumb.whoareyou Who are you?
-									a.breadcrumb.basicinfo.hide-on-small-only Basic Information
-									a.breadcrumb.finish.hide-on-small-only Finish
-
 						.container#whoareyou I am an:
 							form#iaman
 								p.left
@@ -36,7 +35,7 @@ html
 								p.left
 									input.with-gap#organization(type="radio" name="whoareyou" value="organization")
 									label(for="organization") Organization
-								button.blue-grey.btn.waves-effect.waves-light.center(type="submit") NEXT
+								button.blue-grey.btn-large.waves-effect.waves-light.center(type="submit") NEXT
 
 						form#basicinfo1.col.s12
 							.row
@@ -50,7 +49,7 @@ html
 							.row
 								.input-field.col.s12
 									input.validate.password(name="password" type="password" required="" autocomplete="off" placeholder="Password")
-									button.blue-grey.btn.waves-effect.waves-light.center(type="submit") SUBMIT
+							button.blue-grey.btn-large.waves-effect.waves-light.center(type="submit") SUBMIT
 
 						form#basicinfo2.col.s12
 							.row
@@ -67,7 +66,7 @@ html
 							.row
 								.input-field.col.s12
 									input.validate.orgpassword(name="orgpassword" type="password" required="" autocomplete="off" placeholder="Password")
-									button.blue-grey.btn.waves-effect.waves-light.center(type="submit") SUBMIT
+							button.blue-grey.btn-large.waves-effect.waves-light.center(type="submit") SUBMIT
 						form#finish.col.s12(method="GET")
 							.row
 								p.center.congrats Congratulations! Your account has been made. 
@@ -78,94 +77,176 @@ html
 										span Type: 
 										span Email: 
 								button.blue-grey.btn.waves-effect.waves-light.center(type="submit") Start spreading the love!
-			if individual
+			if user.type == 'individual'
+				ul#slide-out.side-nav
+					li.userView.center
+						.background
+							img(src='')
+						//- form#changeprofilepic(method="POST" action="/newprofilepic")
+						//- 	.thefilefield
+						//- 		.file-field.input-field.center(hidden)
+						//- 			a(href="#!") Change Profile Picture
+						//- 			input(type="file")
+						//- 	.profilepic
+						//- 		if user.profilepic
+						//- 			img.circle(src=user.profilepic)
+						//- 		else
+						//- 			p.center
+						//- 				i.fa.fa-user-circle.fa-4x
+							button.btn-flat.waves-effect(type="submit") Save
+							.file-path-wrapper(hidden)
+								input.file-path.validate(type="text")
+						p.center
+							i.fa.fa-user-circle.fa-4x
+						a(href='#!') #{user.firstname} #{user.lastname}
+						a(href='#!') #{user.email}
+					li.divider
+					li
+						a.subheader.center(href="#!") Odd Jobs Offered
+							.divider
+					li
+						each oddjob in oddjobs
+							if oddjob.individualId == user.id
+								.col.s12
+									.card.z-depth-4
+										//- .card-image.waves-effect.waves-block.waves-light
+										//- 	img.activator(src=oddjob.individual.profilepic)
+										.card-content
+											.card-title.activator #{oddjob.jobtitle}
+												i.material-icons.right more_vert
+												p.truncate #{oddjob.jobdescription}
+										.card-action
+											p.center #{oddjob.individual.firstname} #{oddjob.individual.lastname}
+										.card-reveal
+											.card-title #{oddjob.jobtitle}
+												i.material-icons close
+											p #{oddjob.jobdescription}
+											p.contact Contact: #{user.email}
+				a#indprofile.profile.btn.button-collapse.blue-grey(href="#" data-activates="slide-out") Profile
+					i.material-icons.left menu
+				//- .tap-target(data-activates="indprofile")
+				//- 	i.fa.fa-angle-double-left.right(aria-hidden="true")
+				//- 	.container
+				//- 		strong Click to view your new profile!
+				//- 		ul
+				//- 			li -Here you can show all of your odd job postings
+			else if user.type == 'collective'
 				ul#slide-out.side-nav
 					li.userView
 						.background
 							img(src='/static/css/images/placeholderimg.jpg')
-						a(href='#!user')
-							img.circle(src='/static/css/images/placeholderimg.jpg')
-						a(href='#!name') #{individual.firstname} #{individual.lastname}
-						a(href='#!email') #{individual.email}
-					li
-						a(href="#!") website?
-					li
-						a(href="#!") something here
+							//- if user.profilepic
+							//- 	img.circle(src=user.profilepic)
+							//- else
+							//- 	p
+							//- 		i.fa.fa-user-circle.fa-4x
+						p.center
+							i.fa.fa-user-circle.fa-4x
+							//- form#changeprofilepic(method="POST" action="/newprofilepic")
+							//- 	.file-field.input-field.changepic
+							//- 		.btn.blue-grey.right
+							//- 			span Change Profile Picture
+							//- 			input#changepic(type="file")
+							//- 		.file-path-wrapper
+							//- 			input.file-path.validate(type="text")
+						a(href='#!') #{user.name}
+						a(href='#!') #{user.email}
 					li.divider
 					li
-						a.subheader(href="#!") Subheader
+						a.subheader.center(href="#!") Volunteer Jobs offered
+							.divider
 					li
-						a.waves-effect(href="#!") and something here too
-				a#indprofile.btn.button-collapse.blue-grey(href="#" data-activates="slide-out") Profile
+						each collectivejob in collectivejobs
+							if collectivejob.collectiveId == user.id
+								.col.s12
+								.card.z-depth-4
+									//- .card-image.waves-effect.waves-block.waves-light
+									//- 	img.activator(src=collectivejob.collective.profilepic)
+									.card-content
+										.card-title.activator #{collectivejob.jobtitle}
+											i.material-icons.right more_vert
+											p.truncate #{collectivejob.jobdescription}
+									.card-action
+										p.center #{collectivejob.collective.name}
+									.card-reveal
+										.card-title #{collectivejob.jobtitle}
+											i.material-icons close
+										p #{collectivejob.jobdescription}
+										p.contact Contact: #{user.email}
+							
+				a#collectiveprofile.profile.btn.button-collapse.blue-grey(href="#" data-activates="slide-out") Profile
 					i.material-icons.left menu
-				.tap-target(data-activates="indprofile")
-					i.fa.fa-angle-double-left.right(aria-hidden="true")
-					.container
-						strong Click to view your new profile!
-						ul
-							li -Write a bio
-							li -Keep track of all the love you share
-							li -Post odd jobs
-
-			else if organization
+				//- .tap-target(data-activates="collectiveprofile")
+				//- 	.tap-target-content
+				//- 		strong Click to view your new profile!
+				//- 			ul
+				//- 				li -Here you can show all of the volunteer opportunites for your collective
+			else if user.type == 'nonprofit'
 				ul#slide-out.side-nav
 					li.userView
 						.background
 							img(src='/static/css/images/placeholderimg.jpg')
-						a(href='#!user')
-							img.circle(src='/static/css/images/placeholderimg.jpg')
-						a(href='#!name') #{organization.orgname}
-						a(href='#!email') #{organization.email}
-					li
-						a(href="#!") website
-					li
-						a(href="#!") bio
+							//- .profilepic
+							//- 	if user.profilepic
+							//- 		img.circle(src=user.profilepic)
+							//- 	else
+							//- 		p
+							//- 			i.fa.fa-user-circle.fa-4x
+						p.center
+							i.fa.fa-user-circle.fa-4x
+							//- form#changeprofilepic(method="POST" action="/newprofilepic")
+							//- 	.file-field.input-field.changepic
+							//- 				.btn.blue-grey.right(hidden)
+							//- 					span Change Profile Picture
+							//- 					input#changepic(type="file")
+							//- 				.file-path-wrapper
+							//- 					input.file-path.validate(type="text")
+						a(href='#!') #{user.name}
+						a(href='#!') #{user.email}
 					li.divider
 					li
-						a.subheader(href="#!") Subheader
+						a.subheader.center(href="#!") Volunteer Jobs offered
+							.divider
 					li
-						a.waves-effect(href="#!") and something here too
-				a#orgprofile.btn.button-collapse.blue-grey(href="#" data-activates="slide-out") Profile
+						each nonprofitjob in nonprofitjobs
+							if nonprofitjob.nonprofitId == user.id
+								.col.s12
+								.card.z-depth-4
+									//- .card-image.waves-effect.waves-block.waves-light
+									//- 	img.activator(src=nonprofitjob.nonprofit.profilepic)
+									.card-content
+										.card-title.activator #{nonprofitjob.jobtitle}
+											i.material-icons.right more_vert
+											p.truncate #{nonprofitjob.jobdescription}
+									.card-action
+										p.center #{nonprofitjob.nonprofit.name}
+									.card-reveal
+										.card-title #{nonprofitjob.jobtitle}
+											i.material-icons close
+										p #{nonprofitjob.jobdescription}
+										p.contact Contact: #{user.email}
+				a#nonprofitprofile.profile.btn.button-collapse.blue-grey(href="#" data-activates="slide-out") Profile
 					i.material-icons.left menu
-				.tap-target(data-activates="orgprofile")
-					.tap-target-content
-						strong Click to view your new profile!
-							ul
-								li -Feature your website
-								li -Write a bio about your organization
-								li -Post volunteer opportunites for your #{organization.type}
-
+				//- .tap-target(data-activates="nonprofitprofile")
+				//- 	.tap-target-content
+				//- 		strong Click to view your new profile!
+				//- 			ul
+				//- 				li -Here you can show all of the volunteer opportunites for your non-profit organization
 			else
 				a.btn.left.blue-grey(href="#login") Log-In
 				#login.modal
-					nav
-						.nav-wrapper
-							.col.s4.center.grey.darken-4
-								strong Log-In
-							ul.tabs.tabs-transparent
-								li.tab
-									a(href="#loginformind") Individual
-								li.tab.right
-									a(href="#loginformorg") Organization
+					.extended-nav.center.grey.darken-4
+						strong Log-In
 					.container
-						form#loginformind.col.s12(method="POST" action="/login")
-							input.center(name="thetype" value="individual" hidden)
+						form.col.s12.center(method="POST" action="/login")
 							.row
 								.input-field.col.s12
 									input.validate.enteremail(name="enteremail" type="email" required="" autocomplete="off" placeholder="Email")
 							.row
 								.input-field.col.s12
 									input.validate.enterpassword(name="enterpassword" type="password" required="" autocomplete="off" placeholder="Password")
-							button.center.blue-grey.btn.waves-effect.waves-light(type="submit") SUBMIT
-						form#loginformorg.col.s12(method="POST")
-							input(name="thetype" value="organization" hidden)
 							.row
-								.input-field.col.s12
-									input.validate.enteremail(name="enteremail" type="email" required="" autocomplete="off" placeholder="Email")
-							.row
-								.input-field.col.s12
-									input.validate.enterpassword(name="enterpassword" type="password" required="" autocomplete="off" placeholder="Password")
-							button.blue-grey.btn.waves-effect.waves-light(type="submit") SUBMIT
+								button.center.blue-grey.btn-large.waves-effect.waves-light(type="submit") SUBMIT
 		.nav-content.center
 			ul.tabs.tabs-transparent
 				li.tab
@@ -178,102 +259,67 @@ html
 					a(href="#nonprofit") Non-Profit Oranizations
 				li.tab
 					a(href="#initiatives") Initiatives
-		.socialmedia.hide-on-small-only
-				a(href="#")
-					i.fa.fa-facebook-square.fa-5x(aria-hidden="true")
-				a(href="#")
-					i.fa.fa-twitter-square.fa-5x(aria-hidden="true")
-				a(href="#")
-					i.fa.fa-instagram.fa-5x(aria-hidden="true")
-				a(href="#")
-					i.fa.fa-envelope-square.fa-5x(aria-hidden="true")
-		#scrollspy.col.hide-on-med-and-down.m3.l2.right
-			ul.section.table-of-contents
-				l(hidden)
-					a(href="#slides" hidden)
-				li
-					a(href="#about") Introduction
-				li
-					a(href="#recent") Featured
-				li
-					a(href="#youcanmakeadifference") Be the Change
+		div#socialwrap
+			.socialmedia.hide-on-small-only
+					a(href="#")
+						i.fa.fa-facebook-square.fa-5x(aria-hidden="true")
+					a(href="#")
+						i.fa.fa-twitter-square.fa-5x(aria-hidden="true")
+					a(href="#")
+						i.fa.fa-instagram.fa-5x(aria-hidden="true")
+					a(href="#")
+						i.fa.fa-envelope-square.fa-5x(aria-hidden="true")
 		
 		#home
+			#scrollspy.col.hide-on-med-and-down.m3.l2.right
+				ul.section.table-of-contents
+					l(hidden)
+						a(href="#slides" hidden)
+					li
+						a(href="#about") About us
+					.divider.black
+					li
+						a(href="#recent") How to help
+					.divider.black
+					li
+						a(href="#youcanmakeadifference") Be the Change
+
 			.container
 				.container#slides.section.scrollspy
 					.slider
-						ul.slides
+						ul.slides.z-depth-4
 							li
-								img(src='/static/css/images/placeholderimg.jpg')
+								img(src='/static/css/images/sliderimg4.jpg')
 								.caption.center-align
 							li
-								img(src='/static/css/images/placeholderimg.jpg')
+								img(src='/static/css/images/sliderimg2.jpg')
 							li
-								img(src='/static/css/images/placeholderimg.jpg')
+								img(src='/static/css/images/sliderimg5.png')
 							li
-								img(src='/static/css/images/placeholderimg.jpg')
+								img(src='/static/css/images/sliderimg6.jpg')
 							li
-								img(src='/static/css/images/placeholderimg.jpg')
+								img(src='/static/css/images/sliderimg1.jpg')
 				#about.flow-text.section.scrollspy
 					strong Spread the Love San Francisco 
 					span is all about helping out others in need. It is a community marketplace not based on money, but kindness and gratitude. We believe a gift-based economy provides the most abundance and brings out the best in humanity by accentuating qualities of compassion and empathy rather than greed and lust. We dream of a day where everyone in our society races to lend each other a helping hand instead of stepping over each other to attain what we've been told makes the world go 'round. True, money can get you a lot in this world, but let's put that song by The Beatles to the test and prove that 
 					strong  all we need is love.
 
-				#recent.section.scrollspy 
+				#recent.section.scrollspy
 					.takealook Take a look at some of the opportunities you have to help.
-					.recentslides
-						.card
-							.card-image.waves-effect.waves-block.waves-light
-								img.activator(src=('/static/css/images/placeholderimg.jpg'))
-							.card-content
-								.card-title.activator Job title
-									i.material-icons.right more_vert
-									p Description of job
-							.card-action
-								p.center Type of work
-							.card-reveal
-								.card-title Job title
-									i.material-icons close
-								p Description of job
-						.card
-							.card-image.waves-effect.waves-block.waves-light
-								img.activator(src=('/static/css/images/placeholderimg.jpg'))
-							.card-content
-								.card-title.activator Job title
-									i.material-icons.right more_vert
-									p Description of job
-							.card-action
-								p.center Type of work
-							.card-reveal
-								.card-title Job title
-									i.material-icons close
-								p Description of job
-						.card
-							.card-image.waves-effect.waves-block.waves-light
-								img.activator(src=('/static/css/images/placeholderimg.jpg'))
-							.card-content
-								.card-title.activator Job title
-									i.material-icons.right more_vert
-									p Description of job
-							.card-action
-								p.center Type of work
-							.card-reveal
-								.card-title Job title
-									i.material-icons close
-								p Description of job
-						.card
-							.card-image.waves-effect.waves-block.waves-light
-								img.activator(src=('/static/css/images/placeholderimg.jpg'))
-							.card-content
-								.card-title.activator Job title
-									i.material-icons.right more_vert
-									p Description of job
-							.card-action
-								p.center Type of work
-							.card-reveal
-								.card-title Job title
-									i.material-icons close
-								p Description of job
+					.row.center
+						.col.s12.m12.l4 
+							i.fa.fa-handshake-o.fa-5x(aria-hidden="true")
+							h4 Pick up odd jobs
+							span Lend a helping hand to a neighbor in need! Our community is only as strong as the bonds between us. 
+						.col.s12.m12.l4
+							i.fa.fa-group.fa-5x(aria-hidden="true")
+							h4 Volunteer for a Collective/Non-Profit Organization
+							span These groups could always use some help, and more often then not you will learn something new!
+						.col.s12.m12.l4
+							i.fa.fa-hand-rock-o.fa-5x(aria-hidden="true")
+							h4 Join an initiative
+							span Together we can accomplish incredible things. Strength in numbers!
+
 
 				#youcanmakeadifference.section.scrollspy
 					.center You can make a difference.
@@ -284,61 +330,285 @@ html
 
 
 		#oddjobs
+			.container.oddjobs
+				if user.type == 'individual'
+						.row
+							.col.s12.m6.l6.hide-on-small-only
+								.card.z-depth-4
+									//- .card-image.waves-effect.waves-block.waves-light
+									//- 	img.activator(src=user.profilepic)
+									.card-content
+										.card-title.activator.ojtitle Job Title
+											i.material-icons.right more_vert
+										p.truncate.ojdescription Job Description
+									.card-action
+											p.center.author By: #{user.firstname} #{user.lastname}
+									.card-reveal
+										.card-title.ojtitle Job Title
+											i.material-icons close
+										p.ojdescription Job Description
+											p.contact Contact: #{user.email}
+							.col.s12.m6.l6
+								form#postoddjob.card.center.z-depth-4(action="/newoddjob" method="POST")
+									//- .card-image.waves-effect.waves-block.waves-light
+									//- 	img(src=user.profilepic)
+										.file-field.input-field.changepic
+											.btn.blue-grey.right
+												span Change picture
+												input#changepic(type="file" value=individual.profilepic)
+											.file-path-wrapper
+												input.file-path.validate(type="text")
+									.card-content
+										.input-field
+											input#ojtitle.validate(name="jobtitle" type="text")
+											label(for="ojtitle") Job Title
+										.input-field
+											input#ojdescription.validate(name="jobdescription" type="text")
+											label(for="ojdescription") Job Description
+									.card-action
+										button.btn-large.blue-grey.hoverable(type="submit") Submit
+				.row
+					each oddjob in oddjobs
+						.col.s12.m10.l10.offset-m1.offset-l1
+							.card.horizontal.z-depth-4
+								a.card-image.waves-effect.waves-block.waves-light.z-depth-4
+									img(src=oddjob.individual.profilepic)
+								.card-content
+									.card-title.activator #{oddjob.jobtitle}
+										i.material-icons.right more_vert
+									p #{oddjob.jobdescription}
+								.card-action
+									p.center #{oddjob.individual.firstname} #{oddjob.individual.lastname}
+								.card-reveal
+									.card-title #{oddjob.jobtitle}
+										i.material-icons close
+									p #{oddjob.jobdescription}
+									.contact
+										p Name: #{oddjob.individual.firstname} #{oddjob.individual.lastname}
+										p Contact: #{oddjob.individual.email}
+							.divider
 
 		#collectives
+			.container.collectives
+				.row
+					if user.type == 'collective'
+						.col.s12.m6.l6.hide-on-small-only
+							.card.z-depth-4
+								//- .card-image.waves-effect.waves-block.waves-light
+								//- 	img.activator(src=user.profilepic)
+								.card-content
+									.card-title.activator.cjtitle Job Title
+										i.material-icons.right more_vert
+									p.truncate.cjdescription Job Description
+								.card-action
+										p.center.author By: #{user.name}
+								.card-reveal
+									.card-title.cjtitle Job Title
+										i.material-icons close
+									p.cjdescription Job Description
+										p.contact Contact: #{user.email}
+						.col.s12.m6.l6
+							form#postcollectivejob.card.center.z-depth-4(action="/newcollectivejob" method="POST")
+								//- .card-image.waves-effect.waves-block.waves-light
+								//- 	img(src=user.profilepic)
+									.file-field.input-field.changepic
+										.btn.blue-grey.right
+											span Change picture
+											input#changepic(type="file" value=individual.profilepic)
+										.file-path-wrapper
+											input.file-path.validate(type="text")
+								.card-content
+									.input-field
+										input#cjtitle.validate(name="jobtitle" type="text")
+										label(for="cjtitle") Job Title
+									.input-field
+										input#cjdescription.validate(name="jobdescription" type="text")
+										label(for="cjdescription") Job Description
+								.card-action
+									button.btn-large.blue-grey.hoverable(type="submit") Submit
+				.row
+					each collectivejob in collectivejobs
+						.col.s12.m10.l10.offset-m1.offset-l1
+							.card.horizontal.z-depth-4
+								.card-image.waves-effect.waves-block.waves-light.z-depth-4
+									img(src=collectivejob.collective.profilepic)
+								.card-content
+									.card-title.activator #{collectivejob.jobtitle}
+										i.material-icons.right more_vert
+									p #{collectivejob.jobdescription}
+								.card-action
+									p.center #{collectivejob.collective.name}
+								.card-reveal
+									.card-title #{collectivejob.jobtitle}
+										i.material-icons close
+									p #{collectivejob.jobdescription}
+									.contact
+										p Name: #{collectivejob.collective.name}
+										p Contact: #{collectivejob.collective.email}
+							.divider
 
 		#nonprofit
+			.container.nonprofits
+				.row
+					if user.type == 'nonprofit'
+						.col.s12.m6.l6.hide-on-small-only
+							.card.z-depth-4
+								//- .card-image.waves-effect.waves-block.waves-light
+								//- 	img.activator(src=user.profilepic)
+								.card-content
+									.card-title.activator.npjtitle Job Title
+										i.material-icons.right more_vert
+									p.truncate.npjdescription Job Description
+								.card-action
+										p.center.author By: #{user.name}
+								.card-reveal
+									.card-title.npjtitle Job Title
+										i.material-icons close
+									p.npjdescription Job Description
+										p.contact Contact: #{user.email}
+						.col.s12.m6.l6
+							form#postnonprofitjob.card.center.z-depth-4(method="POST" action="/newnonprofitjob")
+								//- .card-image.waves-effect.waves-block.waves-light
+								//- 	img(src=user.profilepic)
+									.file-field.input-field.changepic
+										.btn.blue-grey.right
+											span Change picture
+											input#changepic(type="file" value=individual.profilepic)
+										.file-path-wrapper
+											input.file-path.validate(type="text")
+								.card-content
+									.input-field
+										input#npjtitle.validate(name="jobtitle" type="text")
+										label(for="npjtitle") Job Title
+									.input-field
+										input#cjdescription.validate(name="jobdescription" type="text")
+										label(for="npjdescription") Job Description
+								.card-action
+									button.btn-large.blue-grey.hoverable(type="submit") Submit
+				.row
+					each nonprofitjob in nonprofitjobs
+						.col.s12.m10.l10.offset-m1.offset-l1
+							.card.horizontal.z-depth-4
+								.card-image.waves-effect.waves-block.waves-light.z-depth-4
+									img(src=nonprofitjob.nonprofit.profilepic)
+								.card-content
+									.card-title.activator #{nonprofitjob.jobtitle}
+										i.material-icons.right more_vert
+									p #{nonprofitjob.jobdescription}
+								.card-action
+									p.center #{nonprofitjob.nonprofit.name}
+								.card-reveal
+									.card-title #{nonprofitjob.jobtitle}
+										i.material-icons close
+									p #{nonprofitjob.jobdescription}
+									.contact
+										p Name: #{nonprofitjob.nonprofit.name}
+										p Contact: #{nonprofitjob.nonprofit.email}
+							.divider
 
 		#initiatives
-		.page-footer
+			.container.initiatives
+				.row
+					if user.type != "none"
+						.col.s12.m6.l6.hide-on-small-only
+							.card.z-depth-4
+								//- .card-image.waves-effect.waves-block.waves-light
+								//- 	img.activator(src=user.profilepic)
+								.card-content
+									.card-title.activator.inittitle Name of Initiative
+										i.material-icons.right more_vert
+									p.truncate.initdescription Initiative Goals
+								.card-action
+									if user.type == 'individual'
+										p.center.author By: #{user.firstname} #{user.lastname}
+									if user.type == 'collective'
+										p.center.author By: #{user.name}
+									if user.type == 'nonprofit'
+										p.center.author By: #{user.name}
+								.card-reveal
+									.card-title.inittitle Name of Initiative
+										i.material-icons close
+									p.initdescription Initiative Goals
+										p.contact Contact: #{user.email}
+						.col.s12.m6.l6
+							form#postinitiative.card.center.z-depth-4(method="POST" action="/newinitiative")
+								//- .card-image.waves-effect.waves-block.waves-light
+								//- 	img(src=user.profilepic)
+									.file-field.input-field.changepic
+										.btn.blue-grey.right
+											span Change picture
+											input#changepic(type="file" value=individual.profilepic)
+										.file-path-wrapper
+											input.file-path.validate(type="text")
+								.card-content
+									.input-field
+										input#inittitle.validate(name="initname" type="text")
+										label(for="inittitle") Name of Initiative
+									.input-field
+										input#initdescription.validate(name="initgoal" type="text")
+										label(for="initdescription") Initiative Goals
+								.card-action
+									button.btn-large.blue-grey.hoverable(type="submit") Submit
+				.row
+					each initiative in initiatives
+						.col.s12.m10.l10.offset-m1.offset-l1
+							.card.horizontal.z-depth-4
+								.card-image.waves-effect.waves-block.waves-light.z-depth-4
+									if initiative.individual
+										img(src=initiative.individual.profilepic)
+									if initiative.collective
+										img(src=initiative.collective.profilepic)
+									if initiative.nonprofit
+										img(src=initiative.nonprofit.profilepic)
+								.card-content
+									.card-title.activator #{initiative.initname}
+										i.material-icons.right more_vert
+									p #{initiative.initgoal}
+								.card-action
+									if initiative.individual
+										p.center #{initiative.individual.firstname} #{initiative.individual.lastname}
+									if initiative.collective
+										p.center #{initiative.collective.name}
+									if initiative.nonprofit
+										p.center #{initiative.nonprofit.name}
+								.card-reveal
+									.card-title #{initiative.initname}
+										i.material-icons close
+									p #{initiative.initgoal}
+									.contact
+										if initiative.individual
+											p #{initiative.individual.firstname} #{initiative.individual.lastname}
+										if initiative.collective
+											p #{initiative.collective.name}
+										if initiative.nonprofit
+											p #{initiative.nonprofit.name}
+										if initiative.individual
+											p #{initiative.individual.email}
+										if initiative.collective
+											p #{initiative.collective.email}
+										if initiative.nonprofit
+											p #{initiative.nonprofit.email}
+							.divider
+						
+		.page-footer.z-depth-4
 			.container
 				.row
 					.col.l6.s12
-						h5 Footer content
-						p blah blah blah
+						h5 Spread the love
+						p Marketplace for Volunteer Work
 					.col.l4.offset-l2.s12
-						h5 blahs and more blahs
+						h5 Want to know how you can make change?
 						ul
 							li
-								a
+								a Click here
 							li
-								a
+								a and here
 							li
-								a
+								a aaanndddd hereee
 			.footer-copyright
-				.container Creative Commons
-					a.right megablah
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
-		br
+				.container This isnt copyrighted but no ones looking here anyways...
+					a.right Peace out
 
-
-	
 		script(type="text/javascript" src="static/js/jquery.min.js")
-		script(type="text/javascript" src="static/slick/slick.min.js")
 		script(type="text/javascript" src="static/js/materialize.min.js")
 		script(type="text/javascript" src="static/js/custom.js")
