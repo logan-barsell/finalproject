@@ -21,6 +21,7 @@ body {
 	margin-bottom: 25px;
 	background-color: transparent;
 	color: white;
+	border-radius: 2px;
 }
 
 .card-content {
@@ -36,7 +37,8 @@ form .card-content {
 }
 
 .card-image{
-	height: 350px;
+	max-height: 350px;
+	border-radius: 2px;
 }
 
 

@@ -75,21 +75,21 @@ $(document).ready(f => {
 		$('.overview span:nth-child(4)').show().append(user.category).append(' <i class="material-icons">done</i>')
 		$('.overview span:nth-child(5)').show().append(user.email).append(' <i class="material-icons">done</i>')
 	})
-
 	$('#finish').submit(e => {
 		e.preventDefault()
-		if (user.type == 'individual') {
-			$.post('/newindividual', {result: user}, res => {
+		if (user.category == 'Collective') {
+			$.post('/newcollective', {result: user}, res => {
 				window.location = '/'
+
 			})
 		}
-		else if (user.category == 'collective') {
-			$.post('/newcollective', {result: user}, res => {
+		else if (user.category == 'Non-profit') {
+			$.post('/newnonprofit', {result: user}, res => {
 				window.location = '/'
 			})
 		}
 		else {
-			$.post('/newnonprofit', {result: user}, res => {
+			$.post('/newindividual', {result: user}, res => {
 				window.location = '/'
 			})
 		}

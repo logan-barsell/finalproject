@@ -180,7 +180,7 @@ app.set('views', __dirname+'/views')
 		name: newnonprofit.orgname,
 		email: newnonprofit.email,
 		password: newnonprofit.password,
-		profilepic: newnonprofit.profilepic,
+		profilepic: 'none',
 		type: 'nonprofit'
 	}).then((nonprofit) => {
 		nonprofit.type = 'nonprofit'
@@ -207,7 +207,7 @@ app.set('views', __dirname+'/views')
 	collectivejob.create({
 		jobtitle: req.body.jobtitle,
 		jobdescription: req.body.jobdescription,
-		individualId: req.session.user.id
+		collectiveId: req.session.user.id
 	}).then( newcj => {
 		res.redirect('/#collectives')
 	})
@@ -217,7 +217,7 @@ app.set('views', __dirname+'/views')
 	nonprofitjob.create({
 		jobtitle: req.body.jobtitle,
 		jobdescription: req.body.jobdescription,
-		individualId: req.session.user.id
+		nonprofitId: req.session.user.id
 	}).then( newnpj => {
 		res.redirect('/#nonprofits')
 	})
@@ -227,7 +227,7 @@ app.set('views', __dirname+'/views')
 	initiative.create({
 		initname: req.body.initname,
 		initgoal: req.body.initgoal,
-		individualId: req.session.user.id
+		initiativeId: req.session.user.id
 	}).then( newinit => {
 		res.redirect('/#initiatives')
 	})
@@ -339,8 +339,8 @@ db.sync({force: true}).then( f => {
 	Promise.all([
 		// Creates some odd jobs
 		userscreated[0].createOddjob({
-			jobtitle: 'dothislater',
-			jobdescription: 'lorem',
+			jobtitle: 'Lorem Ipsmum',
+			jobdescription: 'lorem ipsum t enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 			postpic: userscreated[0].profilepic
 		}),
 		userscreated[1].createOddjob({
@@ -392,7 +392,7 @@ db.sync({force: true}).then( f => {
 			postpic: userscreated[0].profilepic,
 		}),
 		userscreated[1].createInitiative({
-			initname: 'Feed the homeless',
+			initname: 'Food drive',
 			initgoal: 'We are doing a food drive to help feed the homeless, all food donations graciously accepted!',
 			postpic: userscreated[1].profilepic
 		}),
@@ -455,7 +455,7 @@ db.sync({force: true}).then( f => {
 			postpic: userscreated[0].profilepic
 		}),
 		userscreated[1].createInitiative({
-			initname: 'Feed the homeless',
+			initname: 'Food drive',
 			initgoal: 'We are doing a food drive to help feed the homeless, all food donations graciously accepted!',
 			postpic: userscreated[1].profilepic
 		}),
@@ -518,7 +518,7 @@ db.sync({force: true}).then( f => {
 			postpic: userscreated[0].profilepic
 		}),
 		userscreated[1].createInitiative({
-			initname: 'Feed the homeless',
+			initname: 'Food drive',
 			initgoal: 'We d!',
 			postpic: userscreated[1].profilepic
 		}),

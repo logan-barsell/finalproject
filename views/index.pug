@@ -58,8 +58,8 @@ html
 								.input-field.col.s6
 									select.category
 										option(value="" disabled selected) Which best describes your organization?
-										option.type1(value="collective") Collective
-										option.type2(value="nonprofit") Non-profit
+										option.type1 Collective
+										option.type2 Non-profit
 							.row
 								.input-field.col.s12
 									input.validate.orgemail(name="orgemail" type="email" required="" autocomplete="off" placeholder="Email")
@@ -76,7 +76,7 @@ html
 										span Organization: 
 										span Type: 
 										span Email: 
-								button.blue-grey.btn.waves-effect.waves-light.center(type="submit") Start spreading the love!
+								button.blue-grey.btn-large.waves-effect.waves-light.center(type="submit") Start spreading the love!
 			if user.type == 'individual'
 				ul#slide-out.side-nav
 					li.userView.center
@@ -132,7 +132,7 @@ html
 				//- 			li -Here you can show all of your odd job postings
 			else if user.type == 'collective'
 				ul#slide-out.side-nav
-					li.userView
+					li.userView.center
 						.background
 							img(src='/static/css/images/placeholderimg.jpg')
 							//- if user.profilepic
@@ -183,7 +183,7 @@ html
 				//- 				li -Here you can show all of the volunteer opportunites for your collective
 			else if user.type == 'nonprofit'
 				ul#slide-out.side-nav
-					li.userView
+					li.userView.center
 						.background
 							img(src='/static/css/images/placeholderimg.jpg')
 							//- .profilepic
@@ -409,14 +409,12 @@ html
 										p.contact Contact: #{user.email}
 						.col.s12.m6.l6
 							form#postcollectivejob.card.center.z-depth-4(action="/newcollectivejob" method="POST")
-								//- .card-image.waves-effect.waves-block.waves-light
-								//- 	img(src=user.profilepic)
-									.file-field.input-field.changepic
-										.btn.blue-grey.right
-											span Change picture
-											input#changepic(type="file" value=individual.profilepic)
-										.file-path-wrapper
-											input.file-path.validate(type="text")
+								//- .file-field.input-field.changepic
+									.btn.blue-grey.right
+										span Change picture
+										input#changepic(type="file" value=individual.profilepic)
+									.file-path-wrapper
+										input.file-path.validate(type="text")
 								.card-content
 									.input-field
 										input#cjtitle.validate(name="jobtitle" type="text")
@@ -490,7 +488,10 @@ html
 						.col.s12.m10.l10.offset-m1.offset-l1
 							.card.horizontal.z-depth-4
 								.card-image.waves-effect.waves-block.waves-light.z-depth-4
-									img(src=nonprofitjob.nonprofit.profilepic)
+									if nonprofitjob.nonprofit.profilepic == "none"
+										i.fa.fa-user-circle.fa-4x
+									else
+										img(src=nonprofitjob.nonprofit.profilepic)
 								.card-content
 									.card-title.activator #{nonprofitjob.jobtitle}
 										i.material-icons.right more_vert
@@ -589,7 +590,6 @@ html
 										if initiative.nonprofit
 											p #{initiative.nonprofit.email}
 							.divider
-						
 		.page-footer.z-depth-4
 			.container
 				.row
